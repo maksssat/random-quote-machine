@@ -1,10 +1,10 @@
-function QuoteText() {
+function QuoteText(props) {
   return (
     <figure className="quote-text">
       <blockquote id="text">
-        <p>Нельзя недооценивать силу халявы.</p>
+        <p>{props.quote}</p>
       </blockquote>
-      <figcaption id="author">Эрик Картман</figcaption>
+      <figcaption id="author">{props.author}</figcaption>
     </figure>
   );
 }

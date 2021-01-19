@@ -1,18 +1,21 @@
-function QuoteButtons() {
+import Button from "./Button";
+
+function QuoteButtons(props) {
   return (
     <div className="quote-buttons">
-      <a
+      <Button
         href="https://twitter.com/intent/tweet?text=Hello%20world"
         id="tweet-quote"
         className="twitter-share-button"
+        text="Tweet"
         target="_blank"
-        rel="noopener"
-      >
-        Tweet
-      </a>
-      <a href="#" id="new-quote">
-        New Quote
-      </a>
+      />
+      <Button
+        href="#"
+        id="new-quote"
+        text="New Quote"
+        onClick={props.onClick}
+      />
     </div>
   );
 }
