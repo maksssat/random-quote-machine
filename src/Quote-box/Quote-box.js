@@ -3,41 +3,46 @@ import "./Quote-box.css";
 import QuoteText from "./Quote-text";
 import QuoteButtons from "./Quote-buttons";
 
-const test = [
-  {
-    quote: "Hello",
-    author: "Me",
-  },
-  {
-    quote: "World",
-    author: "You",
-  },
-  {
-    quote: "Again",
-    author: "We",
-  },
-];
-
 class QuoteBox extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      isLoaded: false,
       randomNumber: 0,
+      quotes: [],
     };
     this.handleClick = this.handleClick.bind(this);
   }
 
+  componentDidMount() {
+    fetch(
+      "https://raw.githubusercontent.com/maksssat/random-quote-machine/master/quotes.json"
+    )
+      .then((res) => res.json())
+      .then(
+        (data) => {
+          this.setState({
+            isLoaded: true,
+            quotes: data,
+            randomNumber: Math.floor(Math.random() * data.length),
+          });
+        },
+        (error) => {
+          this.setState({ isLoaded: true, error });
+        }
+      );
+  }
+
   handleClick() {
-    const randomNumber = Math.floor(Math.random() * test.length);
     this.setState({
-      randomNumber: randomNumber,
+      randomNumber: Math.floor(Math.random() * this.state.quotes.length),
     });
   }
 
   render() {
-    const number = this.state.randomNumber;
-    const quote = test[number].quote;
-    const author = test[number].author;
+    const n = this.state.randomNumber;
+    const quote = this.state.isLoaded ? this.state.quotes[n].quote : null;
+    const author = this.state.isLoaded ? this.state.quotes[n].author : null;
     return (
       <div id="quote-box">
         <QuoteText quote={quote} author={author} />
