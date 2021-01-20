@@ -1,5 +1,4 @@
 import React from "react";
-import "./Quote-box.css";
 import QuoteText from "./Quote-text";
 import QuoteButtons from "./Quote-buttons";
 
@@ -46,7 +45,11 @@ class QuoteBox extends React.Component {
     return (
       <div id="quote-box">
         <QuoteText quote={quote} author={author} />
-        <QuoteButtons onClick={this.handleClick} />
+        <QuoteButtons
+          onClick={this.handleClick}
+          quote={quote}
+          author={author}
+        />
       </div>
     );
   }
